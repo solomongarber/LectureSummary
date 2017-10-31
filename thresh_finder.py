@@ -3,7 +3,6 @@ import cv2
 
 def find(in_vid,skip):
     cap=cv2.VideoCapture(in_vid)
-    t=180
     ret,frame=cap.read()
     tot_time=cap.get(cv2.CAP_PROP_FRAME_COUNT)
     old=np.zeros(frame.shape,dtype=np.int64)
