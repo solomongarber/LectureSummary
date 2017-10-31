@@ -1,14 +1,14 @@
 import corrConv
 import numpy as np
 import cv2
-import pyrMaskiir
+import pyrMask
 from scipy import ndimage
 import os
 import time
 import thresh_finder
 import lPyr
 import argparse
-import vid_writer
+#import vid_writer
 
 
 
@@ -46,7 +46,8 @@ frame_height=int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps=cap.get(cv2.CAP_PROP_FPS)
 num_channels=3
 
-out=vid_writer.vid_writer(out_name,'.mp4',fourcc,fps,(frame_width,frame_height),args.tempDir,args.tempDir+'/'+start_name+'.txt',400) #todo - maybe use opencv directly
+#out=vid_writer.vid_writer(out_name,'.mp4',fourcc,fps,(frame_width,frame_height),args.tempDir,args.tempDir+'/'+start_name+'.txt',400) #todo - maybe use opencv directly
+out=cv2.VideoWriter(outname+'.mp4',fourcc,fps,(frame_width,frame_height),True)
 
 tot_time=int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 ret = True
@@ -98,7 +99,7 @@ thresh=thresh_finder.find(in_name,skip_thresh) #todo - this should be done onlin
 
 ret,frame=cap.read()
 last_frame[:,:,:]=frame
-pyr_blender=pyrMaskiir.pyrMaskiir(frame,True,nlevs,inference_lev,r) #remember to get rid of inferenece lev, and change the names and stuff
+pyr_blender=pyrMask.pyrMask(frame,True,nlevs,inference_lev,r) #remember to get rid of inferenece lev, and change the names and stuff
 old_frame[:,:,:]=get_new_frame(frame,inference_lev)#we're getting rid of get_new_frame
 t = t+1
 
@@ -377,7 +378,7 @@ while(cap.isOpened() and ret):
         break
 
 
-out.finish()
+#out.finish()
 f.close()
 cap.release()
 cv2.destroyAllWindows()
