@@ -31,8 +31,6 @@ class pyrMask:
                 mask_band=cv2.threshold(mask_band,254,255,cv2.THRESH_BINARY)[1]
             new_mask=np.divide(np.array(mask_band,dtype=np.float32),255)
             old_mask=np.subtract(1,new_mask)
-            #print np.min(n.add(old_mask,new_mask))
-            #print np.max(np.add(old_mask,new_mask))
             if band_num<(len(new_pyr)-1):
                 new_band=np.array(np.multiply(new_band,new_mask),dtype=np.int16)
                 old_band=np.array(np.multiply(old_band,old_mask),dtype=np.int16)
